@@ -28,8 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
       stateManagement: true, // Default is true.
       hideNavigationBarWhenKeyboardAppears: true,
       popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
-      padding: const EdgeInsets.only(top: 2),
-      backgroundColor: ColorsConst.white,
+      // padding: const EdgeInsets.only(top: 2),
+      backgroundColor: CupertinoColors.lightBackgroundGray,
       isVisible: true,
       animationSettings: const NavBarAnimationSettings(
         navBarItemAnimation: ItemAnimationSettings(
