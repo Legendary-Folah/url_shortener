@@ -8,6 +8,8 @@ class UrlHome extends StatefulWidget {
   State<UrlHome> createState() => _UrlHomeState();
 }
 
+TextEditingController linkController = TextEditingController();
+
 class _UrlHomeState extends State<UrlHome> {
   @override
   Widget build(BuildContext context) {
@@ -21,12 +23,12 @@ class _UrlHomeState extends State<UrlHome> {
               children: [
                 const Text(
                   'Link shortener...',
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
+                  style: TextStyle(fontSize: 24),
                 ),
                 const SizedBox(height: 20),
-                TextFormField(),
+                TextFormField(
+                  controller: linkController,
+                ),
                 const SizedBox(height: 20),
                 Container(
                   width: double.infinity,
