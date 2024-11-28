@@ -28,12 +28,22 @@ class _UrlHomeState extends State<UrlHome> {
                 const SizedBox(height: 20),
                 TextFormField(),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  // style: const ButtonStyle(
-                  //   minimumSize: WidgetStatePropertyAll<Size>(),
-                  // ),
-                  child: const Text('SHorten Link'),
+                Container(
+                  width: double.infinity,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    color: ColorsConst.grey,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Shorten Link',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
