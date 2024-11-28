@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_shortener_project/Core/colors.dart';
+import 'package:url_shortener_project/Core/form_validation.dart';
 
 class UrlHome extends StatefulWidget {
   const UrlHome({super.key});
@@ -26,8 +27,35 @@ class _UrlHomeState extends State<UrlHome> {
                   style: TextStyle(fontSize: 24),
                 ),
                 const SizedBox(height: 20),
-                TextFormField(
-                  controller: linkController,
+                Container(
+                  decoration: BoxDecoration(
+                    color: ColorsConst.white,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: TextFormField(
+                    controller: linkController,
+                    validator: FormValidations.validateDomain,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: ColorsConst.grey,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: ColorsConst.green,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Container(
