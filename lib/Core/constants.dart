@@ -1,6 +1,8 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class Constants {
   Constants._();
 
-  static const bitlyAccess = "983822afdd4e1a3fe6bed8382084387e6191260c";
-  static const apiUrl = 'https://api-ssl.bitly.com/v4/shorten';
+  static String get bitlyAccess => dotenv.env['BITLY_ACCESS'] ?? '';
+  static String get apiUrl => dotenv.env['API_URL'] ?? '';
 }

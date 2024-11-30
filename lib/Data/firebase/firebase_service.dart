@@ -12,8 +12,8 @@ class FirebaseService {
   String listCollection = 'links';
 
   Future<String> shortenURL(String longUrl) async {
-    const String accessToken = Constants.bitlyAccess;
-    const String apiUrl = Constants.apiUrl;
+    String accessToken = Constants.bitlyAccess;
+    String apiUrl = Constants.apiUrl;
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -46,7 +46,7 @@ class FirebaseService {
       await _firestore.collection(listCollection).doc(uuid).set({
         'link': shortenLink,
         'id': uuid,
-        'time': '${date.hour} : ${date.minute}',
+        'time': '${date.hour} : ${date.minute} ${date.hour > 12 ? 'pm' : 'am'}',
       });
       return true;
     } catch (e) {
