@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:url_shortener_project/Core/constants.dart';
+import 'package:url_shortener_project/Data/model/link_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
 class FirebaseService {
-  FirebaseService._();
+  // FirebaseService._();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String listCollection = 'links';
@@ -70,5 +72,30 @@ class FirebaseService {
       print('Error in shortenAndAddURL: $e');
       return false;
     }
+  }
+
+  List getLinks(AsyncSnapshot snapshot) {
+    if (snapshot.data == null) {
+      print('No data found');
+      return [];
+    }
+    try {
+      final linkList = snapshot.data.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return LinkModel(
+          id: doc.id,
+          link: data['link'] ?? "",
+          time: data['time'] ?? "",
+        );
+      }).toList();
+      return linkList;
+    } catch (e) {
+      print('Error parsing notes: $e');
+      return [];
+    }
+  }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamLinks() {
+    return _firestore.collection(listCollection).doc().snapshots();
   }
 }

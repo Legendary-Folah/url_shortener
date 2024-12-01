@@ -1,11 +1,11 @@
 class LinkModel {
   final String? link;
   final String? id;
-  final String? date;
+  final String? time;
 
   LinkModel({
     this.link,
     this.id,
-    this.date,
+    this.time,
   });
 }

@@ -23,8 +23,8 @@ class _UrlHomeState extends State<UrlHome> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Link shortener...',
-                  style: TextStyle(fontSize: 24),
+                  'Link shortener',
+                  style: TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 20),
                 Container(
@@ -59,7 +59,7 @@ class _UrlHomeState extends State<UrlHome> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: double.infinity,
+                  width: 100,
                   height: 42,
                   decoration: BoxDecoration(
                     color: ColorsConst.grey,
