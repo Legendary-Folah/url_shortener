@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_shortener_project/Core/colors.dart';
 import 'package:url_shortener_project/Core/form_validation.dart';
+import 'package:url_shortener_project/Data/firebase/firebase_service.dart';
 
 class UrlHome extends StatefulWidget {
   const UrlHome({super.key});
@@ -59,18 +60,23 @@ class _UrlHomeState extends State<UrlHome> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: 100,
+                  width: 200,
                   height: 42,
                   decoration: BoxDecoration(
                     color: ColorsConst.grey,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FirebaseService().shortenAndAddUrl(linkController.text);
+                      // linkController.text = '';
+                      print('link: ${linkController.text}');
+                    },
                     child: const Text(
                       'Shorten Link',
                       style: TextStyle(
                         fontSize: 18,
+                        color: ColorsConst.white,
                       ),
                     ),
                   ),

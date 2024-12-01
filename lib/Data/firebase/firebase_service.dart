@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_shortener_project/Core/constants.dart';
 import 'package:url_shortener_project/Data/model/link_model.dart';
+import 'package:url_shortener_project/Presentation/screen/url_home.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +33,8 @@ class FirebaseService {
         final String shortenedUrl = responseData['link'];
         return shortenedUrl;
       } else {
-        print('Failed to shorten URL: ${response.statusCode}');
+        print(
+            'Failed to shorten URL: ${response.statusCode} - ${response.body}');
         return longUrl;
       }
     } catch (e) {
@@ -45,11 +47,15 @@ class FirebaseService {
     try {
       final uuid = const Uuid().v4();
       final date = DateTime.now();
+      final String time =
+          '${date.hour > 12 ? date.hour - 12 : date.hour}:${date.minute} ${date.hour >= 12 ? 'pm' : 'am'}';
       await _firestore.collection(listCollection).doc(uuid).set({
         'link': shortenLink,
         'id': uuid,
-        'time': '${date.hour} : ${date.minute} ${date.hour > 12 ? 'pm' : 'am'}',
+        'time': time,
       });
+      print('Link added successfully');
+      print('link : ${linkController.text}, id : $uuid, time : $time');
       return true;
     } catch (e) {
       print('Error adding link: $e');
