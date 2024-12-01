@@ -43,14 +43,14 @@ class _UrlHomeState extends State<UrlHome> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: ColorsConst.grey,
-                          width: 2,
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: ColorsConst.green,
-                          width: 2,
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -60,10 +60,10 @@ class _UrlHomeState extends State<UrlHome> {
                 const SizedBox(height: 20),
                 Container(
                   width: double.infinity,
-                  height: 22,
+                  height: 42,
                   decoration: BoxDecoration(
                     color: ColorsConst.grey,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextButton(
                     onPressed: () {},
