@@ -9,7 +9,6 @@ import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
 class FirebaseService {
-  // FirebaseService._();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String listCollection = 'links';
@@ -81,10 +80,6 @@ class FirebaseService {
   }
 
   List getLinks(AsyncSnapshot snapshot) {
-    if (snapshot.data == null) {
-      print('No data found');
-      return [];
-    }
     try {
       final linkList = snapshot.data.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
@@ -101,7 +96,11 @@ class FirebaseService {
     }
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> streamLinks() {
-    return _firestore.collection(listCollection).doc().snapshots();
+  Future<bool?> delete(String? id) async {
+    await _firestore.collection(listCollection).doc(id).delete();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamLinks() {
+    return _firestore.collection(listCollection).snapshots();
   }
 }

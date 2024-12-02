@@ -7,15 +7,17 @@ class FormValidations {
   }
 
   static String? validateDomain(String? value) {
-    final domainRegex = RegExp(
-        r'^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-]*)*$',
-        caseSensitive: false);
     if (value == null || value.isEmpty) {
       return 'Field cannot be empty.';
     }
-    if (!domainRegex.hasMatch(value)) {
-      return 'Invalid URL. Please include a valid domain.';
+    final fullUrlRegex = RegExp(
+      r'^(https?://)?([\w\-]+\.)+[\w\-]{2,}(/[\w\-]*)*$',
+      caseSensitive: false,
+    );
+    if (!fullUrlRegex.hasMatch(value)) {
+      return 'Invalid URL. Ensure it starts with http:// or https://.';
     }
+
     return null;
   }
 }

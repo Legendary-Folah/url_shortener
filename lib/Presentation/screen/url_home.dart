@@ -60,16 +60,29 @@ class _UrlHomeState extends State<UrlHome> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: 200,
-                  height: 42,
+                  width: 250,
+                  height: 60,
                   decoration: BoxDecoration(
                     color: ColorsConst.grey,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextButton(
                     onPressed: () {
-                      FirebaseService().shortenAndAddUrl(linkController.text);
-                      // linkController.text = '';
+                      String link = linkController.text.trim();
+                      final String? validationMessage =
+                          FormValidations.validateDomain(link);
+                      if (validationMessage != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(validationMessage)),
+                        );
+                        return;
+                      }
+                      if (!link.startsWith('http://') &&
+                          !link.startsWith('https://')) {
+                        link = 'https://$link';
+                      }
+                      FirebaseService().shortenAndAddUrl(link);
+
                       print('link: ${linkController.text}');
                     },
                     child: const Text(

@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_shortener_project/Core/colors.dart';
+import 'package:url_shortener_project/Data/external_services.dart';
 import 'package:url_shortener_project/Data/firebase/firebase_service.dart';
 
 class UrlList extends StatefulWidget {
@@ -20,7 +23,6 @@ class _UrlListState extends State<UrlList> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               }
-
               if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               }
@@ -29,12 +31,69 @@ class _UrlListState extends State<UrlList> {
                 itemCount: linkList.length,
                 itemBuilder: (context, index) {
                   final link = linkList[index];
-                  return ListTile(
-                    title: Text(
-                      link.link,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                    subtitle: Text(link.time),
+                  return Column(
+                    children: [
+                      Dismissible(
+                          background: Container(
+                            color: ColorsConst.green,
+                          ),
+                          secondaryBackground: Container(
+                            color: Colors.red,
+                            child: const Icon(
+                              Icons.delete,
+                              color: ColorsConst.white,
+                            ),
+                          ),
+                          key: UniqueKey(),
+                          onDismissed: (DismissDirection direction) {
+                            FirebaseService().delete(link.id);
+                            print('Deleted : ${link.link}, ${link.id}');
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 100,
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: ColorsConst.grey),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: '${link.link}',
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            ExternalServices.launchUrl(
+                                                link.link);
+                                            print('Launched ${link.link}');
+                                          },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Text(
+                                //   link.link,
+                                //   style: const TextStyle(fontSize: 18),
+                                // ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  'Time Added: ${link.time}',
+                                  style: const TextStyle(
+                                      fontStyle: FontStyle.italic),
+                                ),
+                              ],
+                            ),
+                          )),
+                      const SizedBox(height: 15),
+                    ],
                   );
                 },
               );
