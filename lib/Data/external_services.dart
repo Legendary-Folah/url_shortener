@@ -1,8 +1,13 @@
+import 'package:url_launcher/url_launcher.dart';
+
 class ExternalServices {
   ExternalServices._();
 
   static Future<void> launchUrl(String url) async {
-    // final uri = Uri.https(url);
-    await launchUrl(url);
+    if (await canLaunchUrl(Uri.https(url))) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
