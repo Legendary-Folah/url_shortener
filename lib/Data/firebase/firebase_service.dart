@@ -42,6 +42,36 @@ class FirebaseService {
     }
   }
 
+  Future<String> shortenURLWithTiny(String longUrl) async {
+    String accessToken = Constants.tinyUrlAccess;
+    String apiUrl = Constants.tinyUrl;
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+        body: jsonEncode({
+          'long_url': longUrl,
+          'domain': 'tinyurl.com',
+        }),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        final String shortenedUrl = responseData['data']['tiny_url'];
+        return shortenedUrl;
+      } else {
+        print(
+            'Failed to shorten URL: ${response.statusCode} - ${response.body}');
+        return longUrl;
+      }
+    } catch (e) {
+      print('Error shortening URL: $e');
+      return longUrl;
+    }
+  }
+
   Future<bool?> addList(String? shortenLink) async {
     try {
       final uuid = const Uuid().v4();
@@ -64,7 +94,7 @@ class FirebaseService {
 
   Future<bool?> shortenAndAddUrl(String longUrl) async {
     try {
-      final String shortenedUrl = await shortenURL(longUrl);
+      final String shortenedUrl = await shortenURLWithTiny(longUrl);
       final bool? isAdded = await addList(shortenedUrl);
 
       if (isAdded == true) {
@@ -98,6 +128,7 @@ class FirebaseService {
 
   Future<bool?> delete(String? id) async {
     await _firestore.collection(listCollection).doc(id).delete();
+    return null;
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> streamLinks() {

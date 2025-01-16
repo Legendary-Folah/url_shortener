@@ -5,4 +5,6 @@ class Constants {
 
   static String get bitlyAccess => dotenv.env['BITLY_ACCESS'] ?? '';
   static String get apiUrl => dotenv.env['API_URL'] ?? '';
+  static String get tinyUrlAccess => dotenv.env['TINY_URL_ACCESS'] ?? '';
+  static String get tinyUrl => dotenv.env['TIBY_URL'] ?? '';
 }
