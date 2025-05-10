@@ -44,7 +44,7 @@ class FirebaseService {
 
   Future<String> shortenURLWithTiny(String longUrl) async {
     String accessToken = Constants.tinyUrlAccess;
-    String apiUrl = 'https://api.tinyurl.com/create';
+    String apiUrl = Constants.tinyUrl;
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
