@@ -25,11 +25,12 @@ class FirebaseService {
         },
         body: jsonEncode({
           'long_url': longUrl,
+          "domain": "bit.ly",
         }),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
-        final String shortenedUrl = responseData['link'];
+        final shortenedUrl = responseData['link'];
         return shortenedUrl;
       } else {
         print(
@@ -94,7 +95,7 @@ class FirebaseService {
 
   Future<bool?> shortenAndAddUrl(String longUrl) async {
     try {
-      final String shortenedUrl = await shortenURLWithTiny(longUrl);
+      final String shortenedUrl = await shortenURL(longUrl);
       final bool? isAdded = await addList(shortenedUrl);
 
       if (isAdded == true) {

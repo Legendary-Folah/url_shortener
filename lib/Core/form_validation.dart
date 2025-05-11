@@ -15,7 +15,7 @@ class FormValidations {
       caseSensitive: false,
     );
     if (!fullUrlRegex.hasMatch(value)) {
-      return 'Invalid URL. Ensure it starts with http:// or https://.';
+      return 'Invalid URL. Ensure it starts with http:// or https://';
     }
 
     return null;

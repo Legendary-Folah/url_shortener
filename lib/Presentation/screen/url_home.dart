@@ -16,87 +16,86 @@ class _UrlHomeState extends State<UrlHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorsConst.white,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Link shortener',
-                  style: TextStyle(fontSize: 20),
+      backgroundColor: ColorsConst.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            spacing: 20,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Link shortener',
+                style: TextStyle(fontSize: 15, letterSpacing: 2),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorsConst.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    color: ColorsConst.white,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextFormField(
-                    controller: linkController,
-                    validator: FormValidations.validateDomain,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
+                child: TextFormField(
+                  controller: linkController,
+                  validator: FormValidations.validateDomain,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 10,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: ColorsConst.grey,
+                        width: 1,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: ColorsConst.grey,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: ColorsConst.green,
+                        width: 1,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: ColorsConst.green,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: ColorsConst.grey,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      String link = linkController.text.trim();
-                      final String? validationMessage =
-                          FormValidations.validateDomain(link);
-                      if (validationMessage != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(validationMessage)),
-                        );
-                        return;
-                      }
-                      if (!link.startsWith('http://') &&
-                          !link.startsWith('https://')) {
-                        link = 'https://$link';
-                      }
-                      FirebaseService().shortenAndAddUrl(link);
-
-                      print('link: ${linkController.text}');
-                    },
-                    child: const Text(
-                      'Shorten Link',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: ColorsConst.white,
-                      ),
+              ),
+              Container(
+                width: 250,
+                height: 55,
+                decoration: BoxDecoration(
+                  color: ColorsConst.grey,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    String link = linkController.text.trim();
+                    final String? validationMessage =
+                        FormValidations.validateDomain(link);
+                    if (validationMessage != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(validationMessage)),
+                      );
+                      return;
+                    }
+                    if (!link.startsWith('http://') &&
+                        !link.startsWith('https://')) {
+                      link = 'https://$link';
+                    }
+                    FirebaseService().shortenAndAddUrl(link);
+                    print('link: ${linkController.text}');
+                  },
+                  child: const Text(
+                    'Shorten Link',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: ColorsConst.white,
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
