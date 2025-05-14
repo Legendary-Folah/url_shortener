@@ -46,9 +46,16 @@ class _UrlListState extends State<UrlList> {
                           ),
                         ),
                         key: UniqueKey(),
-                        onDismissed: (DismissDirection direction) {
-                          FirebaseService().delete(link.id);
+                        onDismissed: (DismissDirection direction) async {
+                          await FirebaseService().delete(link.id);
                           print('Deleted : ${link.link}, ${link.id}');
+                          direction == DismissDirection.endToStart
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Deleted'),
+                                  ),
+                                )
+                              : null;
                         },
                         child: Container(
                           width: double.infinity,
