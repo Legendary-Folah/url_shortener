@@ -53,10 +53,19 @@ class _UrlListState extends State<UrlList> {
                         child: Container(
                           width: double.infinity,
                           height: 100,
+                          margin: const EdgeInsets.only(bottom: 10),
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: ColorsConst.grey),
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white12,
+                            boxShadow: [
+                              BoxShadow(
+                                color: ColorsConst.black,
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
