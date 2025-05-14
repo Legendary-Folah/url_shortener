@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   String listCollection = 'links';
 
   Future<String> shortenURL(String longUrl) async {
@@ -93,7 +92,7 @@ class FirebaseService {
     }
   }
 
-  Future<bool?> shortenAndAddUrl(String longUrl) async {
+  Future<bool> shortenAndAddUrl(String longUrl) async {
     try {
       final String shortenedUrl = await shortenURL(longUrl);
       final bool? isAdded = await addList(shortenedUrl);
@@ -103,7 +102,7 @@ class FirebaseService {
       } else {
         print('Error adding shortened Url successfully');
       }
-      return true;
+      return false;
     } catch (e) {
       print('Error in shortenAndAddURL: $e');
       return false;
