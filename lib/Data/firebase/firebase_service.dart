@@ -53,7 +53,7 @@ class FirebaseService {
           'Authorization': 'Bearer $accessToken',
         },
         body: jsonEncode({
-          'long_url': longUrl,
+          'url': longUrl,
           'domain': 'tinyurl.com',
         }),
       );
@@ -94,7 +94,7 @@ class FirebaseService {
 
   Future<bool> shortenAndAddUrl(String longUrl) async {
     try {
-      final String shortenedUrl = await shortenURL(longUrl);
+      final String shortenedUrl = await shortenURLWithTiny(longUrl);
       final bool? isAdded = await addList(shortenedUrl);
 
       if (isAdded == true) {

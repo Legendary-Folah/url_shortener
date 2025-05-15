@@ -13,11 +13,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
-  final List _screens = [
-    const UrlHome(),
-    const UrlList(),
-  ];
-
   void onTap(value) {
     setState(() {
       _currentIndex = value;
@@ -28,9 +23,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConst.white,
-      body: _screens.elementAt(_currentIndex),
+      body: _currentIndex == 0 ? const UrlHome() : const UrlList(),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: ColorsConst.white,
+        // selectedItemColor: Colors.purpleAccent,
+        backgroundColor: Colors.black26,
         type: BottomNavigationBarType.fixed,
         onTap: onTap,
         items: const [
