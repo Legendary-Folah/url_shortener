@@ -64,12 +64,11 @@ class _UrlListState extends State<UrlList> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: Colors.white12,
+                            color: Colors.black,
                             boxShadow: [
                               BoxShadow(
                                 color: ColorsConst.black,
-                                blurRadius: 10,
-                                offset: const Offset(0, 5),
+                                blurRadius: 5,
                               ),
                             ],
                           ),
@@ -99,6 +98,7 @@ class _UrlListState extends State<UrlList> {
                               Text(
                                 'Time Added: ${link.time}',
                                 style: const TextStyle(
+                                    color: ColorsConst.white,
                                     fontStyle: FontStyle.italic),
                               ),
                             ],
